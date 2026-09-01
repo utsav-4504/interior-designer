@@ -579,27 +579,94 @@ const gallery = document.querySelector(".gallery");
 
 if (gallery) {
   const filterButtons = [...gallery.querySelectorAll(".filter-btn")];
-  const galleryItems = [...gallery.querySelectorAll(".gallery-item")];
+  const showcaseRows = [...gallery.querySelectorAll(".showcase__row")];
   const emptyNote = gallery.querySelector(".gallery__empty");
+  const supportsHover = window.matchMedia("(hover: hover)").matches;
+
+  // --- Live preview stage: hover (or focus) a row, its image crossfades in ---
+  const stage = gallery.querySelector(".showcase__stage");
+  const stageImg = gallery.querySelector(".showcase__stage-img");
+  const stageCaption = gallery.querySelector(".showcase__stage-caption");
+  const stageTag = gallery.querySelector(".showcase__stage-tag");
+  const stageTitle = gallery.querySelector(".showcase__stage-title");
+
+  let activeRow = showcaseRows.find((row) => row.classList.contains("is-active")) || showcaseRows[0];
+
+  function setActiveRow(row, animate) {
+    if (!row || row === activeRow) {
+      return;
+    }
+
+    activeRow = row;
+    showcaseRows.forEach((candidate) => {
+      candidate.classList.toggle("is-active", candidate === row);
+    });
+
+    if (!stage || !stageImg) {
+      return;
+    }
+
+    const image = row.querySelector(".showcase__row-thumb img");
+    const tag = row.querySelector(".showcase__row-tag");
+    const title = row.querySelector(".showcase__row-title");
+    const nextSrc = image ? image.src : "";
+    const nextAlt = image ? image.alt : "";
+    const nextTag = tag ? tag.textContent : "";
+    const nextTitle = title ? title.textContent : "";
+
+    stage.setAttribute("aria-label", `Open ${nextTitle} full screen`);
+
+    const swap = () => {
+      stageImg.src = nextSrc;
+      stageImg.alt = nextAlt;
+      if (stageTag) stageTag.textContent = nextTag;
+      if (stageTitle) stageTitle.textContent = nextTitle;
+      stageImg.classList.remove("is-fading");
+      if (stageCaption) stageCaption.classList.remove("is-fading");
+    };
+
+    if (animate === false || prefersReducedMotion) {
+      swap();
+      return;
+    }
+
+    stageImg.classList.add("is-fading");
+    if (stageCaption) stageCaption.classList.add("is-fading");
+    window.setTimeout(swap, 220);
+  }
+
+  if (supportsHover) {
+    showcaseRows.forEach((row) => {
+      row.addEventListener("mouseenter", () => setActiveRow(row));
+      row.addEventListener("focus", () => setActiveRow(row));
+    });
+  }
 
   function applyFilter(filter) {
     let shown = 0;
+    let firstVisible = null;
 
-    galleryItems.forEach((item) => {
-      const match = filter === "all" || item.dataset.category === filter;
-      item.classList.toggle("is-hidden", !match);
+    showcaseRows.forEach((row) => {
+      const match = filter === "all" || row.dataset.category === filter;
+      row.classList.toggle("is-hidden", !match);
 
       if (match) {
         shown += 1;
-        item.classList.remove("is-repop");
+        firstVisible = firstVisible || row;
+        row.classList.remove("is-repop");
         // Force a reflow so the re-entrance animation restarts.
-        void item.offsetWidth;
-        item.classList.add("is-repop");
+        void row.offsetWidth;
+        row.classList.add("is-repop");
       }
     });
 
     if (emptyNote) {
       emptyNote.hidden = shown > 0;
+    }
+
+    if (firstVisible && activeRow.classList.contains("is-hidden")) {
+      activeRow = null;
+      setActiveRow(firstVisible, false);
     }
   }
 
@@ -667,7 +734,7 @@ if (gallery) {
       return;
     }
 
-    activeItems = galleryItems.filter(
+    activeItems = showcaseRows.filter(
       (candidate) => !candidate.classList.contains("is-hidden"),
     );
     activeIndex = Math.max(0, activeItems.indexOf(item));
@@ -751,9 +818,17 @@ if (gallery) {
     renderLightbox(true);
   }
 
-  galleryItems.forEach((item) => {
-    item.addEventListener("click", () => openLightbox(item));
+  showcaseRows.forEach((row) => {
+    row.addEventListener("click", () => openLightbox(row));
   });
+
+  if (stage) {
+    stage.addEventListener("click", () => {
+      if (activeRow) {
+        openLightbox(activeRow);
+      }
+    });
+  }
 
   if (lightbox) {
     if (lightboxClose) {

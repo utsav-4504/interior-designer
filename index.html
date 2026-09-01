@@ -28,14 +28,14 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Work+Sans:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=15" />
+    <link rel="stylesheet" href="css/styles.css?v=16" />
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollToPlugin.min.js" defer></script>
-    <script src="js/script.js?v=13" defer></script>
+    <script src="js/script.js?v=14" defer></script>
     <noscript>
       <style>
         [data-reveal],
-        .gallery-item {
+        .showcase__row {
           opacity: 1 !important;
           transform: none !important;
           animation: none !important;
@@ -270,238 +270,294 @@
 
       <!-- Portfolio gallery -->
       <section class="gallery section" id="portfolio" data-section>
-        <div class="container gallery__layout">
-          <aside class="gallery__sidebar" data-reveal>
+        <div class="container">
+          <div class="section-heading section-heading--center" data-reveal>
             <p class="eyebrow">Portfolio</p>
             <h2 class="section-title">Concept &amp; visualization work.</h2>
+            <span class="rule" aria-hidden="true"></span>
             <p class="section-copy">
               No completed installed project under the MAN INTERIOR name yet.
               What follows is design and visualization work &mdash; layouts,
               materials, and lighting resolved in 3D before anything is
-              built. Open any piece full screen.
+              built.
             </p>
+          </div>
 
-            <div class="gallery__filters">
-              <button class="filter-btn is-active" type="button" data-filter="all">
-                All
+          <div class="gallery__filters" data-reveal>
+            <button class="filter-btn is-active" type="button" data-filter="all">
+              All
+            </button>
+            <button class="filter-btn" type="button" data-filter="residential">
+              Residential
+            </button>
+            <button class="filter-btn" type="button" data-filter="retail">
+              Retail
+            </button>
+            <button class="filter-btn" type="button" data-filter="exterior">
+              Exterior
+            </button>
+            <button class="filter-btn" type="button" data-filter="exhibition">
+              Exhibition
+            </button>
+          </div>
+
+          <div class="showcase" data-reveal>
+            <div class="showcase__list">
+              <button
+                class="showcase__row is-active"
+                type="button"
+                data-category="residential"
+                data-tag="Residential &middot; Concept"
+                data-title="Quiet bedroom study"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/residential/2/BEDROOM 1.jpg"
+                    alt="Bedroom concept with layered lighting"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">01</span>
+                <span class="showcase__row-title">Quiet bedroom study</span>
+                <span class="showcase__row-tag">Residential</span>
               </button>
-              <button class="filter-btn" type="button" data-filter="residential">
-                Residential
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="retail"
+                data-tag="Retail &middot; Concept"
+                data-title="Showroom seating"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/show rooms/1/Enscape_2026-04-17-17-56-51.png"
+                    alt="Showroom design with customer seating"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">02</span>
+                <span class="showcase__row-title">Showroom seating</span>
+                <span class="showcase__row-tag">Retail</span>
               </button>
-              <button class="filter-btn" type="button" data-filter="retail">
-                Retail
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="exterior"
+                data-tag="Exterior &middot; Concept"
+                data-title="Facade at dusk"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/exterior design/1/Enscape_2026-03-27-15-40-56.png"
+                    alt="Modern facade viewed at dusk"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">03</span>
+                <span class="showcase__row-title">Facade at dusk</span>
+                <span class="showcase__row-tag">Exterior</span>
               </button>
-              <button class="filter-btn" type="button" data-filter="exterior">
-                Exterior
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="exhibition"
+                data-tag="Exhibition &middot; Concept"
+                data-title="Brand corner stall"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/exibition  stall design/ambica/Enscape_2025-05-28-16-41-03.png"
+                    alt="Exhibition corner with product branding"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">04</span>
+                <span class="showcase__row-title">Brand corner stall</span>
+                <span class="showcase__row-tag">Exhibition</span>
               </button>
-              <button class="filter-btn" type="button" data-filter="exhibition">
-                Exhibition
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="residential"
+                data-tag="Residential &middot; Concept"
+                data-title="Kitchen and dining"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/residential/2/kitchen 1.jpg"
+                    alt="Kitchen and dining interior concept"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">05</span>
+                <span class="showcase__row-title">Kitchen and dining</span>
+                <span class="showcase__row-tag">Residential</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="retail"
+                data-tag="Retail &middot; Concept"
+                data-title="Layered showroom light"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/show rooms/5/Enscape_2025-03-26-17-23-54.png"
+                    alt="Showroom interior with layered lighting"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">06</span>
+                <span class="showcase__row-title">Layered showroom light</span>
+                <span class="showcase__row-tag">Retail</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="exterior"
+                data-tag="Exterior &middot; Concept"
+                data-title="Elevation study"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/exterior design/1/Enscape_2026-03-27-15-42-35.png"
+                    alt="Facade elevation visualization"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">07</span>
+                <span class="showcase__row-title">Elevation study</span>
+                <span class="showcase__row-tag">Exterior</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="exhibition"
+                data-tag="Exhibition &middot; Concept"
+                data-title="Compact stand layout"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/exibition  stall design/audio track/Enscape_2025-06-23-18-08-45.png"
+                    alt="Compact exhibition stand visualization"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">08</span>
+                <span class="showcase__row-title">Compact stand layout</span>
+                <span class="showcase__row-tag">Exhibition</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="residential"
+                data-tag="Residential &middot; Concept"
+                data-title="Open-plan living"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/residential/2/living 6.jpg"
+                    alt="Open-plan living space concept"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">09</span>
+                <span class="showcase__row-title">Open-plan living</span>
+                <span class="showcase__row-tag">Residential</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="retail"
+                data-tag="Retail &middot; Concept"
+                data-title="Reception concept"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/show rooms/1/Enscape_2026-04-17-18-04-01.png"
+                    alt="Showroom reception interior"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">10</span>
+                <span class="showcase__row-title">Reception concept</span>
+                <span class="showcase__row-tag">Retail</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="exterior"
+                data-tag="Exterior &middot; Concept"
+                data-title="Vertical elevation"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/exterior design/2/Enscape_2026-03-24-18-52-44.png"
+                    alt="Contemporary vertical elevation concept"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">11</span>
+                <span class="showcase__row-title">Vertical elevation</span>
+                <span class="showcase__row-tag">Exterior</span>
+              </button>
+
+              <button
+                class="showcase__row"
+                type="button"
+                data-category="exhibition"
+                data-tag="Exhibition &middot; Concept"
+                data-title="Stall detail"
+              >
+                <span class="showcase__row-thumb">
+                  <img
+                    src="images/exibition  stall design/ambica/Enscape_2025-05-28-16-48-05.png"
+                    alt="Exhibition stall detail visualization"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="showcase__row-index">12</span>
+                <span class="showcase__row-title">Stall detail</span>
+                <span class="showcase__row-tag">Exhibition</span>
               </button>
             </div>
-          </aside>
-
-          <div class="gallery__grid" data-reveal>
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="residential"
-              data-tag="Residential &middot; Concept"
-              data-title="Quiet bedroom study"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/residential/2/BEDROOM 1.jpg"
-                  alt="Bedroom concept with layered lighting"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
 
             <button
-              class="gallery-item"
+              class="showcase__stage"
               type="button"
-              data-category="retail"
-              data-tag="Retail &middot; Concept"
-              data-title="Showroom seating"
+              aria-label="Open Quiet bedroom study full screen"
             >
-              <span class="gallery-item__media">
-                <img
-                  src="images/show rooms/1/Enscape_2026-04-17-17-56-51.png"
-                  alt="Showroom design with customer seating"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exterior"
-              data-tag="Exterior &middot; Concept"
-              data-title="Facade at dusk"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/exterior design/1/Enscape_2026-03-27-15-40-56.png"
-                  alt="Modern facade viewed at dusk"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exhibition"
-              data-tag="Exhibition &middot; Concept"
-              data-title="Brand corner stall"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/exibition  stall design/ambica/Enscape_2025-05-28-16-41-03.png"
-                  alt="Exhibition corner with product branding"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="residential"
-              data-tag="Residential &middot; Concept"
-              data-title="Kitchen and dining"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/residential/2/kitchen 1.jpg"
-                  alt="Kitchen and dining interior concept"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="retail"
-              data-tag="Retail &middot; Concept"
-              data-title="Layered showroom light"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/show rooms/5/Enscape_2025-03-26-17-23-54.png"
-                  alt="Showroom interior with layered lighting"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exterior"
-              data-tag="Exterior &middot; Concept"
-              data-title="Elevation study"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/exterior design/1/Enscape_2026-03-27-15-42-35.png"
-                  alt="Facade elevation visualization"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exhibition"
-              data-tag="Exhibition &middot; Concept"
-              data-title="Compact stand layout"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/exibition  stall design/audio track/Enscape_2025-06-23-18-08-45.png"
-                  alt="Compact exhibition stand visualization"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="residential"
-              data-tag="Residential &middot; Concept"
-              data-title="Open-plan living"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/residential/2/living 6.jpg"
-                  alt="Open-plan living space concept"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="retail"
-              data-tag="Retail &middot; Concept"
-              data-title="Reception concept"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/show rooms/1/Enscape_2026-04-17-18-04-01.png"
-                  alt="Showroom reception interior"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exterior"
-              data-tag="Exterior &middot; Concept"
-              data-title="Vertical elevation"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/exterior design/2/Enscape_2026-03-24-18-52-44.png"
-                  alt="Contemporary vertical elevation concept"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exhibition"
-              data-tag="Exhibition &middot; Concept"
-              data-title="Stall detail"
-            >
-              <span class="gallery-item__media">
-                <img
-                  src="images/exibition  stall design/ambica/Enscape_2025-05-28-16-48-05.png"
-                  alt="Exhibition stall detail visualization"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <img
+                class="showcase__stage-img"
+                src="images/residential/2/BEDROOM 1.jpg"
+                alt=""
+                decoding="async"
+              />
+              <span class="showcase__stage-caption">
+                <span class="showcase__stage-tag">Residential</span>
+                <span class="showcase__stage-title">Quiet bedroom study</span>
               </span>
             </button>
           </div>
