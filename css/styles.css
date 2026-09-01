@@ -1490,6 +1490,32 @@ section[id] {
 
 /* ---------- New-studio content patterns ---------- */
 
+/* Text section paired with a single supporting image (intro, founder). */
+.content-media {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.content-media--reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+}
+
+.content-media--reverse .content-media__media {
+  order: 2;
+}
+
+.content-media__media {
+  min-height: 22rem;
+  align-self: stretch;
+}
+
+.content-media__content .section-heading,
+.content-media__content .longform {
+  max-width: none;
+}
+
 .longform {
   display: grid;
   gap: 1.15rem;
@@ -2202,10 +2228,20 @@ section[id] {
   .hero__layout,
   .about__layout,
   .why-us__layout,
+  .content-media,
+  .content-media--reverse,
   .faq__layout,
   .contact__layout,
   .site-footer__inner {
     grid-template-columns: 1fr;
+  }
+
+  .content-media--reverse .content-media__media {
+    order: 0;
+  }
+
+  .content-media__media {
+    min-height: 18rem;
   }
 
   .hero__layout {
