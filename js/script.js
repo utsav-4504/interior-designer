@@ -604,7 +604,6 @@ if (gallery) {
   const filterButtons = [...gallery.querySelectorAll(".filter-btn")];
   const galleryItems = [...gallery.querySelectorAll(".gallery-item")];
   const emptyNote = gallery.querySelector(".gallery__empty");
-  const supportsHover = window.matchMedia("(hover: hover)").matches;
 
   function applyFilter(filter) {
     let shown = 0;
@@ -811,23 +810,6 @@ if (gallery) {
     });
   }
 
-  // --- Pointer tilt (hover-capable pointers only) ---
-  if (supportsHover && !prefersReducedMotion) {
-    galleryItems.forEach((item) => {
-      item.addEventListener("pointermove", (event) => {
-        const rect = item.getBoundingClientRect();
-        const px = (event.clientX - rect.left) / rect.width - 0.5;
-        const py = (event.clientY - rect.top) / rect.height - 0.5;
-        item.style.setProperty("--ry", `${px * 6}deg`);
-        item.style.setProperty("--rx", `${py * -6}deg`);
-      });
-
-      item.addEventListener("pointerleave", () => {
-        item.style.setProperty("--rx", "0deg");
-        item.style.setProperty("--ry", "0deg");
-      });
-    });
-  }
 }
 
 /* ---------- Hero coverflow slider ---------- */
