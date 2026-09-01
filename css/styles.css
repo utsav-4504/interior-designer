@@ -1928,7 +1928,10 @@ section[id] {
   justify-content: center;
   gap: 1rem;
   padding: clamp(1rem, 4vw, 3rem);
-  background: rgba(8, 8, 8, 0.93);
+  /* Solid, not translucent: a semi-transparent scrim here left a stale,
+     see-through composited layer on some phones once the GSAP opacity fade
+     finished, letting the page underneath show through the "backdrop". */
+  background: #0a0a0a;
   opacity: 0;
   visibility: hidden;
   transition:
