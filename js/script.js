@@ -899,8 +899,16 @@ if (heroSlider) {
     },
   };
 
+  // Below 640px the 3D tilt on the neighbour slides reads as a rendering
+  // glitch rather than a coverflow effect, so they are hidden outright and
+  // only the active slide is shown, centred and full width.
+  const heroCompactQuery = window.matchMedia("(max-width: 640px)");
+
   function heroStateForOffset(offset) {
     if (offset === 0) return HERO_STATES.center;
+    if (heroCompactQuery.matches) {
+      return offset < 0 ? HERO_STATES.hiddenLeft : HERO_STATES.hiddenRight;
+    }
     if (offset === -1) return HERO_STATES.left;
     if (offset === 1) return HERO_STATES.right;
     return offset < 0 ? HERO_STATES.hiddenLeft : HERO_STATES.hiddenRight;
@@ -908,6 +916,9 @@ if (heroSlider) {
 
   function heroClassForOffset(offset) {
     if (offset === 0) return "pos-center";
+    if (heroCompactQuery.matches) {
+      return offset < 0 ? "pos-hidden-left" : "pos-hidden-right";
+    }
     if (offset === -1) return "pos-left";
     if (offset === 1) return "pos-right";
     return offset < 0 ? "pos-hidden-left" : "pos-hidden-right";
@@ -1032,6 +1043,8 @@ if (heroSlider) {
 
   heroSlider.addEventListener("pointerenter", stopHeroTimer);
   heroSlider.addEventListener("pointerleave", restartHeroTimer);
+
+  heroCompactQuery.addEventListener("change", () => layoutHero(true));
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {

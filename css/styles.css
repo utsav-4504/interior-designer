@@ -726,6 +726,26 @@ section[id] {
   }
 }
 
+/* Below this width the 3D coverflow tilt reads as a rendering glitch rather
+   than a design choice, so the neighbour slides are hidden entirely and the
+   active slide fills the stage as a single centred, full-width image. */
+@media (max-width: 640px) {
+  .hero__stage {
+    perspective: none;
+  }
+
+  .hero__slide {
+    width: min(92%, 26rem);
+  }
+
+  .hero__slide.pos-left,
+  .hero__slide.pos-right {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+}
+
 .hero__title {
   color: #fff;
   font-size: var(--step-h1);
