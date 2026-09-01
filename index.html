@@ -28,10 +28,10 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Work+Sans:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=14" />
+    <link rel="stylesheet" href="css/styles.css?v=15" />
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollToPlugin.min.js" defer></script>
-    <script src="js/script.js?v=12" defer></script>
+    <script src="js/script.js?v=13" defer></script>
     <noscript>
       <style>
         [data-reveal],
@@ -270,37 +270,35 @@
 
       <!-- Portfolio gallery -->
       <section class="gallery section" id="portfolio" data-section>
-        <span class="gallery__bg" aria-hidden="true"></span>
-        <div class="container">
-          <div class="section-heading section-heading--center" data-reveal>
+        <div class="container gallery__layout">
+          <aside class="gallery__sidebar" data-reveal>
             <p class="eyebrow">Portfolio</p>
             <h2 class="section-title">Concept &amp; visualization work.</h2>
-            <span class="rule" aria-hidden="true"></span>
             <p class="section-copy">
               No completed installed project under the MAN INTERIOR name yet.
               What follows is design and visualization work &mdash; layouts,
-              materials, and lighting resolved in 3D before anything is built.
-              Open any piece full screen.
+              materials, and lighting resolved in 3D before anything is
+              built. Open any piece full screen.
             </p>
-          </div>
 
-          <div class="gallery__filters" data-reveal>
-            <button class="filter-btn is-active" type="button" data-filter="all">
-              All
-            </button>
-            <button class="filter-btn" type="button" data-filter="residential">
-              Residential
-            </button>
-            <button class="filter-btn" type="button" data-filter="retail">
-              Retail
-            </button>
-            <button class="filter-btn" type="button" data-filter="exterior">
-              Exterior
-            </button>
-            <button class="filter-btn" type="button" data-filter="exhibition">
-              Exhibition
-            </button>
-          </div>
+            <div class="gallery__filters">
+              <button class="filter-btn is-active" type="button" data-filter="all">
+                All
+              </button>
+              <button class="filter-btn" type="button" data-filter="residential">
+                Residential
+              </button>
+              <button class="filter-btn" type="button" data-filter="retail">
+                Retail
+              </button>
+              <button class="filter-btn" type="button" data-filter="exterior">
+                Exterior
+              </button>
+              <button class="filter-btn" type="button" data-filter="exhibition">
+                Exhibition
+              </button>
+            </div>
+          </aside>
 
           <div class="gallery__grid" data-reveal>
             <button
@@ -317,10 +315,6 @@
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Residential &middot; Concept</span>
-                <span class="gallery-item__title">Quiet bedroom study</span>
               </span>
             </button>
 
@@ -339,10 +333,6 @@
                   decoding="async"
                 />
               </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Retail &middot; Concept</span>
-                <span class="gallery-item__title">Showroom seating</span>
-              </span>
             </button>
 
             <button
@@ -359,10 +349,6 @@
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Exterior &middot; Concept</span>
-                <span class="gallery-item__title">Facade at dusk</span>
               </span>
             </button>
 
@@ -381,10 +367,6 @@
                   decoding="async"
                 />
               </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Exhibition &middot; Concept</span>
-                <span class="gallery-item__title">Brand corner stall</span>
-              </span>
             </button>
 
             <button
@@ -401,10 +383,6 @@
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Residential &middot; Concept</span>
-                <span class="gallery-item__title">Kitchen and dining</span>
               </span>
             </button>
 
@@ -423,10 +401,6 @@
                   decoding="async"
                 />
               </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Retail &middot; Concept</span>
-                <span class="gallery-item__title">Layered showroom light</span>
-              </span>
             </button>
 
             <button
@@ -443,10 +417,6 @@
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Exterior &middot; Concept</span>
-                <span class="gallery-item__title">Elevation study</span>
               </span>
             </button>
 
@@ -465,10 +435,6 @@
                   decoding="async"
                 />
               </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Exhibition &middot; Concept</span>
-                <span class="gallery-item__title">Compact stand layout</span>
-              </span>
             </button>
 
             <button
@@ -485,10 +451,6 @@
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Residential &middot; Concept</span>
-                <span class="gallery-item__title">Open-plan living</span>
               </span>
             </button>
 
@@ -507,10 +469,6 @@
                   decoding="async"
                 />
               </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Retail &middot; Concept</span>
-                <span class="gallery-item__title">Reception concept</span>
-              </span>
             </button>
 
             <button
@@ -528,10 +486,6 @@
                   decoding="async"
                 />
               </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Exterior &middot; Concept</span>
-                <span class="gallery-item__title">Vertical elevation</span>
-              </span>
             </button>
 
             <button
@@ -548,10 +502,6 @@
                   loading="lazy"
                   decoding="async"
                 />
-              </span>
-              <span class="gallery-item__caption">
-                <span class="gallery-item__tag">Exhibition &middot; Concept</span>
-                <span class="gallery-item__title">Stall detail</span>
               </span>
             </button>
           </div>

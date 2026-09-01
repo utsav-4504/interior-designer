@@ -1680,66 +1680,66 @@ section[id] {
 }
 
 /* ---------- Advanced portfolio gallery ---------- */
+/* Gallery-site layout: a slim, quiet info column beside a large, pure-image
+   grid — no card chrome, no captions on the grid itself. */
 
 .gallery {
   position: relative;
-  overflow: hidden;
+  background: var(--paper-soft);
 }
 
-.gallery__bg {
-  position: absolute;
-  top: -8%;
-  right: -12%;
-  width: min(46vw, 640px);
-  aspect-ratio: 1;
-  background: radial-gradient(
-    circle at center,
-    rgba(138, 109, 59, 0.14),
-    rgba(138, 109, 59, 0) 70%
-  );
-  transform: translateY(var(--gallery-parallax, 0));
-  pointer-events: none;
+.gallery__layout {
+  display: grid;
+  grid-template-columns: minmax(14rem, 22%) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.gallery__sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+  display: grid;
+  gap: 1.3rem;
+}
+
+.gallery__sidebar .section-title {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+}
+
+.gallery__sidebar .section-copy {
+  max-width: none;
 }
 
 .gallery__filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-bottom: 2.75rem;
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
 }
 
 .filter-btn {
-  padding: 0.6rem 1.2rem;
-  border: 1px solid var(--line);
+  justify-self: start;
+  padding: 0;
   color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  transition:
-    color 0.25s ease,
-    border-color 0.25s ease,
-    background-color 0.25s ease;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .filter-btn:hover {
   color: var(--ink);
-  border-color: var(--ink);
 }
 
 .filter-btn.is-active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
+  color: var(--ink);
+  font-weight: 600;
 }
 
-/* Minimal editorial gallery: fewer, larger images with generous air
-   between them, a plain caption underneath instead of a hover overlay. */
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.75rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.75rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .gallery__grid[data-reveal] {
@@ -1747,13 +1747,10 @@ section[id] {
 }
 
 .gallery-item {
-  display: grid;
-  gap: 1.1rem;
+  display: block;
   width: 100%;
   padding: 0;
-  text-align: left;
   background: none;
-  color: inherit;
   opacity: 0;
 }
 
@@ -1794,7 +1791,8 @@ section[id] {
   display: block;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: var(--paper-soft);
+  border-radius: 14px;
+  background: var(--line-soft);
 }
 
 .gallery-item__media img {
@@ -1810,25 +1808,13 @@ section[id] {
   transform: scale(1.045);
 }
 
-.gallery-item__caption {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
+.gallery-item:focus-visible {
+  outline: none;
 }
 
-.gallery-item__tag {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted-soft);
-}
-
-.gallery-item__title {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  color: var(--ink);
+.gallery-item:focus-visible .gallery-item__media {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .gallery__empty {
@@ -2146,6 +2132,7 @@ section[id] {
   .why-us__layout,
   .content-media,
   .content-media--reverse,
+  .gallery__layout,
   .faq__layout,
   .contact__layout,
   .site-footer__inner {
@@ -2154,6 +2141,16 @@ section[id] {
 
   .content-media--reverse .content-media__media {
     order: 0;
+  }
+
+  .gallery__sidebar {
+    position: static;
+  }
+
+  .gallery__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.3rem;
   }
 
   .content-media__media {
