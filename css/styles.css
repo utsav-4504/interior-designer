@@ -653,7 +653,8 @@ section[id] {
 
 .hero__arrow {
   position: absolute;
-  top: clamp(8rem, 22vh, 13rem);
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 4;
   display: inline-flex;
   align-items: center;
@@ -728,14 +729,22 @@ section[id] {
 
 /* Below this width the 3D coverflow tilt reads as a rendering glitch rather
    than a design choice, so the neighbour slides are hidden entirely and the
-   active slide fills the stage as a single centred, full-width image. */
+   stage collapses to the active slide's own aspect ratio instead of a tall,
+   mostly-empty box (that empty space was also what pushed the arrows out of
+   line with the image). */
 @media (max-width: 640px) {
+  .hero__coverflow {
+    gap: 1.1rem;
+  }
+
   .hero__stage {
+    height: auto;
+    aspect-ratio: 16 / 10;
     perspective: none;
   }
 
   .hero__slide {
-    width: min(92%, 26rem);
+    width: 100%;
   }
 
   .hero__slide.pos-left,
@@ -743,6 +752,20 @@ section[id] {
     opacity: 0;
     pointer-events: none;
     transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  .hero__arrow {
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.25rem;
+  }
+
+  .hero__arrow--prev {
+    left: 0.6rem;
+  }
+
+  .hero__arrow--next {
+    right: 0.6rem;
   }
 }
 
