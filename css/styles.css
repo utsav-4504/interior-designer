@@ -555,7 +555,6 @@ section[id] {
   z-index: 1;
   display: grid;
   gap: 0.5rem;
-  max-width: 38rem;
 }
 
 .hero__slide-content [data-anim] {
