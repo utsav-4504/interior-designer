@@ -873,26 +873,24 @@ const heroSlider = document.querySelector("[data-hero-slider]");
 
 if (heroSlider) {
   const heroSlides = [...heroSlider.querySelectorAll(".hero__slide")];
-  const heroAmbient = [...document.querySelectorAll(".hero__ambient-img")];
-  const heroDots = heroSlider.querySelector(".hero__dots");
-  const heroNextButtons = [...heroSlider.querySelectorAll("[data-hero-next]")];
+  const heroBars = heroSlider.querySelector(".hero__bars");
   const heroCount = heroSlides.length;
 
   let heroIndex = 0;
   let heroTimer = 0;
 
-  const heroDotButtons = heroSlides.map((_, index) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.setAttribute("aria-label", `Show slide ${index + 1}`);
-    dot.addEventListener("click", () => {
+  const heroBarButtons = heroSlides.map((_, index) => {
+    const bar = document.createElement("button");
+    bar.type = "button";
+    bar.setAttribute("aria-label", `Show slide ${index + 1}`);
+    bar.addEventListener("click", () => {
       goToHeroSlide(index);
       restartHeroTimer();
     });
-    if (heroDots) {
-      heroDots.append(dot);
+    if (heroBars) {
+      heroBars.append(bar);
     }
-    return dot;
+    return bar;
   });
 
   function layoutHero() {
@@ -910,14 +908,10 @@ if (heroSlider) {
       slide.setAttribute("aria-hidden", String(!isActive));
     });
 
-    heroDotButtons.forEach((dot, index) => {
+    heroBarButtons.forEach((bar, index) => {
       const isActive = index === heroIndex;
-      dot.classList.toggle("is-active", isActive);
-      dot.setAttribute("aria-current", String(isActive));
-    });
-
-    heroAmbient.forEach((img, index) => {
-      img.classList.toggle("is-active", index === heroIndex);
+      bar.classList.toggle("is-active", isActive);
+      bar.setAttribute("aria-current", String(isActive));
     });
   }
 
@@ -938,13 +932,6 @@ if (heroSlider) {
     window.clearInterval(heroTimer);
     heroTimer = 0;
   }
-
-  heroNextButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      goToHeroSlide(heroIndex + 1);
-      restartHeroTimer();
-    });
-  });
 
   heroSlider.addEventListener("pointerenter", stopHeroTimer);
   heroSlider.addEventListener("pointerleave", restartHeroTimer);
