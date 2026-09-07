@@ -11,7 +11,8 @@
   --muted: #66655f;
   --muted-soft: #8c8b84;
 
-  /* Logo palette, palest to deepest. */
+  /* Logo palette, palest to deepest, plus the brand blue provided
+     separately -- it anchors the deep end of the graded gradients below. */
   --teal-50: #d0eef0;
   --teal-100: #b4e8eb;
   --teal-200: #99e6e9;
@@ -21,16 +22,25 @@
   --teal-600: #9dbcbe;
   --teal-700: #618286;
   --teal-800: #2c4347;
+  --brand-blue: #2596be;
 
-  /* --accent is the palette color small text/markers can actually sit on
-     white at (~4.6:1); the two gradients below cover the large dark and
-     light brand surfaces (buttons, footer, overlays) the rest of the
-     palette is too light or too vivid to use as flat text color. */
-  --accent: var(--teal-700);
-  --gradient-dark: linear-gradient(135deg, var(--teal-800), var(--teal-700));
-  --gradient-bright: linear-gradient(135deg, var(--teal-400), var(--teal-500));
+  /* --accent is the brand blue -- the site's one lead color for text-sized
+     accents (markers, links, focus rings) as well as the gradient below. */
+  --accent: var(--brand-blue);
+  --gradient-dark: linear-gradient(
+    135deg,
+    var(--teal-800) 0%,
+    var(--teal-700) 55%,
+    var(--brand-blue) 100%
+  );
+  --gradient-bright: linear-gradient(135deg, var(--teal-400), var(--brand-blue));
 
-  --footer-bg: linear-gradient(165deg, var(--teal-800) 0%, #141414 60%);
+  --footer-bg: linear-gradient(
+    165deg,
+    var(--teal-800) 0%,
+    var(--brand-blue) 45%,
+    #141414 100%
+  );
   --footer-text: rgba(255, 255, 255, 0.86);
   --footer-muted: rgba(255, 255, 255, 0.56);
   --footer-line: rgba(255, 255, 255, 0.14);
@@ -530,13 +540,14 @@ section[id] {
 .hero__slide-scrim {
   position: absolute;
   inset: 0;
-  /* rgb(44, 67, 71) is --teal-800 -- tinting the scrim with it instead of
-     neutral black ties the one thing every slide shares (the dark wash
-     that makes the white text readable) to the brand color. */
+  /* Graded top-to-bottom: brand blue (37,150,190) where the wash is faint
+     and legibility isn't at stake, settling into the much darker --teal-800
+     (44,67,71) by the text zone, where it has to stay dark enough for
+     white text regardless of the photo underneath. */
   background: linear-gradient(
     180deg,
-    rgba(44, 67, 71, 0.28) 0%,
-    rgba(44, 67, 71, 0.22) 42%,
+    rgba(37, 150, 190, 0.3) 0%,
+    rgba(44, 67, 71, 0.24) 42%,
     rgba(44, 67, 71, 0.86) 100%
   );
 }
