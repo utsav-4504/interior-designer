@@ -864,99 +864,18 @@ if (gallery) {
 
 }
 
-/* ---------- Hero coverflow slider ---------- */
+/* ---------- Hero split-slide showcase ----------
+   Each slide is a full two-column "scene" (copy + image). Advancing crossfades
+   the whole slide, restarts its text layers' staggered entrance, and tweens
+   the section's tinted background to that slide's own colour. */
 
 const heroSlider = document.querySelector("[data-hero-slider]");
 
 if (heroSlider) {
   const heroSlides = [...heroSlider.querySelectorAll(".hero__slide")];
-  const heroAmbient = [...document.querySelectorAll(".hero__ambient-img")];
   const heroDots = heroSlider.querySelector(".hero__dots");
-  const heroPrev = heroSlider.querySelector(".hero__arrow--prev");
-  const heroNext = heroSlider.querySelector(".hero__arrow--next");
+  const heroNextButtons = [...heroSlider.querySelectorAll("[data-hero-next]")];
   const heroCount = heroSlides.length;
-  const HERO_POSITIONS = [
-    "pos-center",
-    "pos-left",
-    "pos-right",
-    "pos-hidden-left",
-    "pos-hidden-right",
-  ];
-
-  // GSAP target for each coverflow position. xPercent/yPercent are relative to
-  // the slide's own box; the slide is anchored at the stage centre (left/top 50%).
-  const HERO_STATES = {
-    center: {
-      xPercent: -50,
-      yPercent: -50,
-      rotationY: 0,
-      scale: 1,
-      autoAlpha: 1,
-      filter: "brightness(1)",
-      zIndex: 3,
-    },
-    left: {
-      xPercent: -95,
-      yPercent: -50,
-      rotationY: 30,
-      scale: 0.78,
-      autoAlpha: 0.5,
-      filter: "brightness(0.6)",
-      zIndex: 2,
-    },
-    right: {
-      xPercent: -5,
-      yPercent: -50,
-      rotationY: -30,
-      scale: 0.78,
-      autoAlpha: 0.5,
-      filter: "brightness(0.6)",
-      zIndex: 2,
-    },
-    hiddenLeft: {
-      xPercent: -120,
-      yPercent: -50,
-      rotationY: 36,
-      scale: 0.6,
-      autoAlpha: 0,
-      filter: "brightness(0.5)",
-      zIndex: 1,
-    },
-    hiddenRight: {
-      xPercent: 20,
-      yPercent: -50,
-      rotationY: -36,
-      scale: 0.6,
-      autoAlpha: 0,
-      filter: "brightness(0.5)",
-      zIndex: 1,
-    },
-  };
-
-  // Below 640px the 3D tilt on the neighbour slides reads as a rendering
-  // glitch rather than a coverflow effect, so they are hidden outright and
-  // only the active slide is shown, centred and full width.
-  const heroCompactQuery = window.matchMedia("(max-width: 640px)");
-
-  function heroStateForOffset(offset) {
-    if (offset === 0) return HERO_STATES.center;
-    if (heroCompactQuery.matches) {
-      return offset < 0 ? HERO_STATES.hiddenLeft : HERO_STATES.hiddenRight;
-    }
-    if (offset === -1) return HERO_STATES.left;
-    if (offset === 1) return HERO_STATES.right;
-    return offset < 0 ? HERO_STATES.hiddenLeft : HERO_STATES.hiddenRight;
-  }
-
-  function heroClassForOffset(offset) {
-    if (offset === 0) return "pos-center";
-    if (heroCompactQuery.matches) {
-      return offset < 0 ? "pos-hidden-left" : "pos-hidden-right";
-    }
-    if (offset === -1) return "pos-left";
-    if (offset === 1) return "pos-right";
-    return offset < 0 ? "pos-hidden-left" : "pos-hidden-right";
-  }
 
   let heroIndex = 0;
   let heroTimer = 0;
@@ -964,7 +883,7 @@ if (heroSlider) {
   const heroDotButtons = heroSlides.map((_, index) => {
     const dot = document.createElement("button");
     dot.type = "button";
-    dot.setAttribute("aria-label", `Show image ${index + 1}`);
+    dot.setAttribute("aria-label", `Show slide ${index + 1}`);
     dot.addEventListener("click", () => {
       goToHeroSlide(index);
       restartHeroTimer();
@@ -975,50 +894,19 @@ if (heroSlider) {
     return dot;
   });
 
-  function layoutHero(instant) {
+  function layoutHero() {
     heroSlides.forEach((slide, index) => {
-      let offset = index - heroIndex;
-      if (offset > heroCount / 2) {
-        offset -= heroCount;
-      } else if (offset < -heroCount / 2) {
-        offset += heroCount;
+      const isActive = index === heroIndex;
+      // Force a reflow between removing and re-adding the class so the
+      // text layers' entrance transition restarts instead of no-opping
+      // (they're already at their "in" state from last time this slide
+      // was shown).
+      slide.classList.remove("is-active");
+      if (isActive) {
+        void slide.offsetWidth;
+        slide.classList.add("is-active");
       }
-
-      // A slide that jumps more than one step (the one wrapping around the
-      // edge, or a multi-step dot jump) is repositioned instantly so it snaps
-      // instead of sliding across everything.
-      const teleport =
-        instant ||
-        (slide.dataset.offset !== undefined &&
-          Math.abs(offset - Number(slide.dataset.offset)) > 1);
-
-      if (hasGsap) {
-        const state = heroStateForOffset(offset);
-        if (teleport) {
-          gsap.set(slide, state);
-        } else {
-          gsap.to(slide, {
-            ...state,
-            duration: 0.8,
-            ease: "power3.inOut",
-            overwrite: "auto",
-          });
-        }
-      } else {
-        const position = heroClassForOffset(offset);
-        if (teleport) {
-          slide.classList.add("no-anim");
-        }
-        slide.classList.remove(...HERO_POSITIONS);
-        slide.classList.add(position);
-        if (teleport) {
-          void slide.offsetWidth;
-          slide.classList.remove("no-anim");
-        }
-      }
-
-      slide.setAttribute("aria-hidden", String(offset !== 0));
-      slide.dataset.offset = String(offset);
+      slide.setAttribute("aria-hidden", String(!isActive));
     });
 
     heroDotButtons.forEach((dot, index) => {
@@ -1027,9 +915,12 @@ if (heroSlider) {
       dot.setAttribute("aria-current", String(isActive));
     });
 
-    heroAmbient.forEach((img, index) => {
-      img.classList.toggle("is-active", index === heroIndex);
-    });
+    if (heroSection) {
+      const bg = heroSlides[heroIndex]?.dataset.bg;
+      if (bg) {
+        heroSection.style.setProperty("--hero-bg", bg);
+      }
+    }
   }
 
   function goToHeroSlide(next) {
@@ -1042,10 +933,7 @@ if (heroSlider) {
     if (prefersReducedMotion || heroCount < 2) {
       return;
     }
-    heroTimer = window.setInterval(
-      () => goToHeroSlide(heroIndex + 1),
-      3000,
-    );
+    heroTimer = window.setInterval(() => goToHeroSlide(heroIndex + 1), 5000);
   }
 
   function stopHeroTimer() {
@@ -1053,32 +941,15 @@ if (heroSlider) {
     heroTimer = 0;
   }
 
-  heroSlides.forEach((slide, index) => {
-    slide.addEventListener("click", () => {
-      if (index !== heroIndex) {
-        goToHeroSlide(index);
-        restartHeroTimer();
-      }
-    });
-  });
-
-  if (heroPrev) {
-    heroPrev.addEventListener("click", () => {
-      goToHeroSlide(heroIndex - 1);
-      restartHeroTimer();
-    });
-  }
-  if (heroNext) {
-    heroNext.addEventListener("click", () => {
+  heroNextButtons.forEach((button) => {
+    button.addEventListener("click", () => {
       goToHeroSlide(heroIndex + 1);
       restartHeroTimer();
     });
-  }
+  });
 
   heroSlider.addEventListener("pointerenter", stopHeroTimer);
   heroSlider.addEventListener("pointerleave", restartHeroTimer);
-
-  heroCompactQuery.addEventListener("change", () => layoutHero(true));
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -1088,7 +959,7 @@ if (heroSlider) {
     }
   });
 
-  layoutHero(true);
+  layoutHero();
   restartHeroTimer();
 }
 
