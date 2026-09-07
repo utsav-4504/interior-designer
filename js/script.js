@@ -873,6 +873,7 @@ const heroSlider = document.querySelector("[data-hero-slider]");
 
 if (heroSlider) {
   const heroSlides = [...heroSlider.querySelectorAll(".hero__slide")];
+  const heroAmbient = [...document.querySelectorAll(".hero__ambient-img")];
   const heroDots = heroSlider.querySelector(".hero__dots");
   const heroNextButtons = [...heroSlider.querySelectorAll("[data-hero-next]")];
   const heroCount = heroSlides.length;
@@ -915,12 +916,9 @@ if (heroSlider) {
       dot.setAttribute("aria-current", String(isActive));
     });
 
-    if (heroSection) {
-      const bg = heroSlides[heroIndex]?.dataset.bg;
-      if (bg) {
-        heroSection.style.setProperty("--hero-bg", bg);
-      }
-    }
+    heroAmbient.forEach((img, index) => {
+      img.classList.toggle("is-active", index === heroIndex);
+    });
   }
 
   function goToHeroSlide(next) {
