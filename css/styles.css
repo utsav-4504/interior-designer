@@ -304,49 +304,24 @@ section[id] {
     border-color 0.22s ease;
 }
 
-.button--dark {
-  background: var(--gradient-dark);
-  border-color: var(--teal-800);
-  color: #fff;
-}
-
-.button--dark:hover {
-  background: transparent;
-  border-color: var(--ink);
-  color: var(--ink);
-}
-
-.button--outline {
-  background: transparent;
-  color: var(--ink);
-}
-
-.button--outline:hover {
-  background: var(--gradient-dark);
-  border-color: var(--teal-800);
-  color: #fff;
-}
-
-.button--light {
-  background: #fff;
-  border-color: #fff;
-  color: var(--ink);
-}
-
-.button--light:hover {
-  background: transparent;
-  color: #fff;
-}
-
+/* Every button variant now shares one look -- brand-blue fill, black
+   label -- regardless of what surface it sits on; only the hover shade
+   differs slightly to give press feedback. */
+.button--dark,
+.button--outline,
+.button--light,
 .button--outline-light {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #fff;
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+  color: var(--ink);
 }
 
+.button--dark:hover,
+.button--outline:hover,
+.button--light:hover,
 .button--outline-light:hover {
-  background: #fff;
-  border-color: #fff;
+  background: #1c7793;
+  border-color: #1c7793;
   color: var(--ink);
 }
 
@@ -1084,17 +1059,6 @@ section[id] {
 
 .package-card--featured .package-card__ideal {
   color: rgba(255, 255, 255, 0.68);
-}
-
-.package-card--featured .button--dark {
-  background: #fff;
-  border-color: #fff;
-  color: var(--ink);
-}
-
-.package-card--featured .button--dark:hover {
-  background: transparent;
-  color: #fff;
 }
 
 .package-card__ideal {
