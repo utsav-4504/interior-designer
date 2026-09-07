@@ -366,47 +366,13 @@ section[id] {
 }
 
 .brand-mark {
-  display: inline-grid;
-  gap: 0.2rem;
-  line-height: 1;
+  display: inline-flex;
 }
 
-.brand-mark__name {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #fff;
-  transition: color 0.3s ease;
-}
-
-.brand-mark__sub {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
-  transition: color 0.3s ease;
-}
-
-.site-header.is-solid .brand-mark__name {
-  color: var(--ink);
-}
-
-.site-header.is-solid .brand-mark__sub {
-  color: var(--muted);
-}
-
-@media (max-width: 480px) {
-  .brand-mark__name {
-    font-size: 1rem;
-    letter-spacing: 0.18em;
-  }
-
-  .brand-mark__sub {
-    letter-spacing: 0.24em;
-  }
+.brand-mark__logo {
+  display: block;
+  height: 3rem;
+  width: auto;
 }
 
 .nav-toggle {
