@@ -10,10 +10,27 @@
   --line-soft: rgba(20, 20, 20, 0.08);
   --muted: #66655f;
   --muted-soft: #8c8b84;
-  /* Sampled from the logo's watercolor teal, deepened for ~5:1 contrast on
-     white so it still works as small text/marker color, not just a graphic. */
-  --accent: #0c7a8a;
-  --footer-bg: #141414;
+
+  /* Logo palette, palest to deepest. */
+  --teal-50: #d0eef0;
+  --teal-100: #b4e8eb;
+  --teal-200: #99e6e9;
+  --teal-300: #79e1ea;
+  --teal-400: #1fd8e0;
+  --teal-500: #78cacc;
+  --teal-600: #9dbcbe;
+  --teal-700: #618286;
+  --teal-800: #2c4347;
+
+  /* --accent is the palette color small text/markers can actually sit on
+     white at (~4.6:1); the two gradients below cover the large dark and
+     light brand surfaces (buttons, footer, overlays) the rest of the
+     palette is too light or too vivid to use as flat text color. */
+  --accent: var(--teal-700);
+  --gradient-dark: linear-gradient(135deg, var(--teal-800), var(--teal-700));
+  --gradient-bright: linear-gradient(135deg, var(--teal-400), var(--teal-500));
+
+  --footer-bg: linear-gradient(165deg, var(--teal-800) 0%, #141414 60%);
   --footer-text: rgba(255, 255, 255, 0.86);
   --footer-muted: rgba(255, 255, 255, 0.56);
   --footer-line: rgba(255, 255, 255, 0.14);
@@ -235,7 +252,7 @@ section[id] {
   width: 3.5rem;
   height: 2px;
   margin-top: 0.4rem;
-  background: var(--ink);
+  background: var(--accent);
 }
 
 .section-heading--center .rule {
@@ -283,12 +300,14 @@ section[id] {
 }
 
 .button--dark {
-  background: var(--ink);
+  background: var(--gradient-dark);
+  border-color: var(--teal-800);
   color: #fff;
 }
 
 .button--dark:hover {
   background: transparent;
+  border-color: var(--ink);
   color: var(--ink);
 }
 
@@ -298,7 +317,8 @@ section[id] {
 }
 
 .button--outline:hover {
-  background: var(--ink);
+  background: var(--gradient-dark);
+  border-color: var(--teal-800);
   color: #fff;
 }
 
@@ -510,11 +530,14 @@ section[id] {
 .hero__slide-scrim {
   position: absolute;
   inset: 0;
+  /* rgb(44, 67, 71) is --teal-800 -- tinting the scrim with it instead of
+     neutral black ties the one thing every slide shares (the dark wash
+     that makes the white text readable) to the brand color. */
   background: linear-gradient(
     180deg,
-    rgba(10, 10, 10, 0.18) 0%,
-    rgba(10, 10, 10, 0.14) 42%,
-    rgba(10, 10, 10, 0.74) 100%
+    rgba(44, 67, 71, 0.28) 0%,
+    rgba(44, 67, 71, 0.22) 42%,
+    rgba(44, 67, 71, 0.86) 100%
   );
 }
 
@@ -990,7 +1013,7 @@ section[id] {
 }
 
 .testimonial-slider__dots button.is-active {
-  background: var(--ink);
+  background: var(--accent);
 }
 
 /* ---------- Stats ---------- */
@@ -1044,7 +1067,7 @@ section[id] {
 }
 
 .package-card--featured {
-  background: var(--ink);
+  background: var(--gradient-dark);
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -1515,7 +1538,7 @@ section[id] {
   right: 100%;
   bottom: -0.3rem;
   height: 1px;
-  background: var(--ink);
+  background: var(--accent);
   transition: right 0.28s cubic-bezier(0.2, 0.65, 0.2, 1);
 }
 
@@ -2009,7 +2032,7 @@ section[id] {
     justify-content: center;
     gap: 0.5rem;
     padding: 2rem 1.5rem;
-    background: var(--ink);
+    background: var(--gradient-dark);
   }
 
   .site-header.is-nav-open .site-nav {
