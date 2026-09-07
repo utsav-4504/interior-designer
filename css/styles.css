@@ -10,7 +10,9 @@
   --line-soft: rgba(20, 20, 20, 0.08);
   --muted: #66655f;
   --muted-soft: #8c8b84;
-  --accent: #8a6d3b;
+  /* Sampled from the logo's watercolor teal, deepened for ~5:1 contrast on
+     white so it still works as small text/marker color, not just a graphic. */
+  --accent: #0c7a8a;
   --footer-bg: #141414;
   --footer-text: rgba(255, 255, 255, 0.86);
   --footer-muted: rgba(255, 255, 255, 0.56);
