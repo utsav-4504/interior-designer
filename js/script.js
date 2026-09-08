@@ -118,7 +118,6 @@ function buildWhatsAppLink(formData) {
   const email = formData.get("email")?.toString().trim() || "-";
   const location = formData.get("location")?.toString().trim() || "-";
   const projectType = formData.get("project-type")?.toString().trim() || "-";
-  const timeline = formData.get("timeline")?.toString().trim() || "-";
   const brief = formData.get("brief")?.toString().trim() || "-";
 
   const message = [
@@ -127,7 +126,6 @@ function buildWhatsAppLink(formData) {
     `Email: ${email}`,
     `City / Location: ${location}`,
     `Project type: ${projectType}`,
-    `Preferred timeline: ${timeline}`,
     "",
     "Project brief:",
     brief,
