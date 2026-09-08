@@ -825,6 +825,12 @@ section[id] {
   gap: 1.2rem;
 }
 
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
 .form-field {
   display: grid;
   gap: 0.5rem;

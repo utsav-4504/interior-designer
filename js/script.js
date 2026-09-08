@@ -28,7 +28,7 @@ const heroSection = document.querySelector(".hero");
 const contactForm = document.querySelector(".contact-form");
 const formStatus = document.querySelector(".contact-form__status");
 
-const CONTACT_EMAIL = "hello@maninterior.studio";
+const CONTACT_WHATSAPP = "917016891346";
 
 let motionFrame = 0;
 
@@ -112,32 +112,22 @@ function setNavOpen(isOpen) {
   document.body.classList.toggle("is-locked", isOpen);
 }
 
-function buildMailtoLink(formData) {
+function buildWhatsAppLink(formData) {
   const name = formData.get("name")?.toString().trim() || "Website visitor";
-  const phone = formData.get("phone")?.toString().trim() || "-";
   const email = formData.get("email")?.toString().trim() || "-";
   const projectType = formData.get("project-type")?.toString().trim() || "-";
   const brief = formData.get("brief")?.toString().trim() || "-";
 
-  const subject = `New design brief from ${name}`;
-  const body = [
-    `Name: ${name}`,
-    `Phone: ${phone}`,
+  const message = [
+    `Hi, I'm ${name}.`,
     `Email: ${email}`,
     `Project type: ${projectType}`,
     "",
     "Project brief:",
     brief,
-  ].join("\r\n");
+  ].join("\n");
 
-  // URLSearchParams encodes spaces as "+", which mail clients render literally.
-  // mailto needs percent-encoding, so build the query by hand.
-  const query = [
-    `subject=${encodeURIComponent(subject)}`,
-    `body=${encodeURIComponent(body)}`,
-  ].join("&");
-
-  return `mailto:${CONTACT_EMAIL}?${query}`;
+  return `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent(message)}`;
 }
 
 if ("IntersectionObserver" in window) {
@@ -228,23 +218,33 @@ if (contactForm && formStatus) {
   contactForm.addEventListener("input", clearStatus);
 
   contactForm.addEventListener("submit", (event) => {
+    // No submit button remains in the form (WhatsApp is the only send
+    // action), but this guard stops a stray Enter keypress from reloading
+    // the page via the browser's default form submission.
     event.preventDefault();
-    clearStatus();
-
-    if (!contactForm.reportValidity()) {
-      formStatus.textContent =
-        "Please complete the required fields before sending.";
-      formStatus.classList.add("is-error");
-      return;
-    }
-
-    const formData = new FormData(contactForm);
-    formStatus.textContent = "Opening your email app with the project brief.";
-    formStatus.classList.add("is-success");
-
-    window.location.href = buildMailtoLink(formData);
-    contactForm.reset();
   });
+
+  const whatsappButton = contactForm.querySelector("[data-whatsapp-submit]");
+
+  if (whatsappButton) {
+    whatsappButton.addEventListener("click", () => {
+      clearStatus();
+
+      if (!contactForm.reportValidity()) {
+        formStatus.textContent =
+          "Please complete the required fields before sending.";
+        formStatus.classList.add("is-error");
+        return;
+      }
+
+      const formData = new FormData(contactForm);
+      formStatus.textContent = "Opening WhatsApp with the project brief.";
+      formStatus.classList.add("is-success");
+
+      window.open(buildWhatsAppLink(formData), "_blank", "noopener");
+      contactForm.reset();
+    });
+  }
 }
 
 /* ---------- Smooth in-page scrolling ----------
