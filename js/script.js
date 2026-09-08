@@ -25,23 +25,12 @@ const siteNav = document.querySelector(".site-nav");
 const navAnchors = siteNav ? [...siteNav.querySelectorAll("a")] : [];
 const heroSection = document.querySelector(".hero");
 
-const testimonialSlides = [...document.querySelectorAll(".testimonial-slide")];
-const testimonialSlider = document.querySelector(".testimonial-slider");
-const testimonialDots = document.querySelector(".js-testimonial-dots");
-const testimonialPrev = document.querySelector(".js-testimonial-prev");
-const testimonialNext = document.querySelector(".js-testimonial-next");
-
-const faqButtons = [...document.querySelectorAll(".faq-item__button")];
-const statValues = [...document.querySelectorAll(".stat-card__value")];
-
 const contactForm = document.querySelector(".contact-form");
 const formStatus = document.querySelector(".contact-form__status");
 
 const CONTACT_EMAIL = "hello@maninterior.studio";
 
 let motionFrame = 0;
-let testimonialIndex = 0;
-let testimonialTimer = 0;
 
 // Anything the IntersectionObserver has not revealed yet. A fast flick-scroll
 // or a smooth-scrolling anchor jump can carry an element past the viewport
@@ -49,7 +38,6 @@ let testimonialTimer = 0;
 // hit that section stays invisible forever. The scroll frame sweeps this set as
 // a safety net and empties itself once everything is revealed.
 const pendingReveals = new Set(revealNodes);
-const pendingCounts = new Set(statValues);
 
 function markRevealed(node) {
   node.classList.add("is-visible");
@@ -57,7 +45,7 @@ function markRevealed(node) {
 }
 
 function sweepPendingReveals() {
-  if (!pendingReveals.size && !pendingCounts.size) {
+  if (!pendingReveals.size) {
     return;
   }
 
@@ -66,12 +54,6 @@ function sweepPendingReveals() {
   pendingReveals.forEach((node) => {
     if (node.getBoundingClientRect().top < limit) {
       markRevealed(node);
-    }
-  });
-
-  pendingCounts.forEach((node) => {
-    if (node.getBoundingClientRect().top < limit) {
-      startCount(node);
     }
   });
 }
@@ -128,117 +110,6 @@ function setNavOpen(isOpen) {
   siteHeader.classList.toggle("is-nav-open", isOpen);
   navToggle.setAttribute("aria-expanded", String(isOpen));
   document.body.classList.toggle("is-locked", isOpen);
-}
-
-function buildTestimonialDots() {
-  if (!testimonialDots || !testimonialSlides.length) {
-    return [];
-  }
-
-  testimonialDots.innerHTML = "";
-
-  return testimonialSlides.map((_, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.setAttribute("aria-label", `Show testimonial ${index + 1}`);
-    button.addEventListener("click", () => {
-      setActiveTestimonial(index);
-      queueTestimonials();
-    });
-    testimonialDots.append(button);
-    return button;
-  });
-}
-
-const testimonialDotButtons = buildTestimonialDots();
-
-function setActiveTestimonial(nextIndex) {
-  if (!testimonialSlides.length) {
-    return;
-  }
-
-  testimonialIndex =
-    (nextIndex + testimonialSlides.length) % testimonialSlides.length;
-
-  testimonialSlides.forEach((slide, index) => {
-    const isActive = index === testimonialIndex;
-    slide.classList.toggle("is-active", isActive);
-    slide.setAttribute("aria-hidden", String(!isActive));
-  });
-
-  testimonialDotButtons.forEach((dot, index) => {
-    const isActive = index === testimonialIndex;
-    dot.classList.toggle("is-active", isActive);
-    dot.setAttribute("aria-current", String(isActive));
-  });
-}
-
-function clearTestimonialTimer() {
-  if (!testimonialTimer) {
-    return;
-  }
-
-  window.clearInterval(testimonialTimer);
-  testimonialTimer = 0;
-}
-
-function queueTestimonials() {
-  clearTestimonialTimer();
-
-  if (prefersReducedMotion || testimonialSlides.length < 2) {
-    return;
-  }
-
-  testimonialTimer = window.setInterval(() => {
-    setActiveTestimonial(testimonialIndex + 1);
-  }, 6000);
-}
-
-function setFaqState(button, isOpen) {
-  const panel = button.nextElementSibling;
-  if (!(panel instanceof HTMLElement)) {
-    return;
-  }
-
-  button.setAttribute("aria-expanded", String(isOpen));
-  panel.classList.toggle("is-open", isOpen);
-  panel.hidden = !isOpen;
-}
-
-function startCount(node) {
-  if (node.dataset.counted === "true") {
-    return;
-  }
-
-  node.dataset.counted = "true";
-  pendingCounts.delete(node);
-  animateCount(node);
-}
-
-function animateCount(node) {
-  const target = Number(node.dataset.count) || 0;
-  const suffix = node.dataset.suffix || "";
-
-  if (prefersReducedMotion) {
-    node.textContent = `${target}${suffix}`;
-    return;
-  }
-
-  const duration = 1400;
-  const startTime = performance.now();
-
-  function step(now) {
-    const progress = Math.min((now - startTime) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const currentValue = Math.round(target * eased);
-    node.textContent = `${currentValue}${suffix}`;
-
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  }
-
-  window.requestAnimationFrame(step);
 }
 
 function buildMailtoLink(formData) {
@@ -304,29 +175,8 @@ if ("IntersectionObserver" in window) {
   );
 
   sectionNodes.forEach((node) => sectionObserver.observe(node));
-
-  if (statValues.length) {
-    const statObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
-          startCount(entry.target);
-          statObserver.unobserve(entry.target);
-        });
-      },
-      {
-        threshold: 0.45,
-      },
-    );
-
-    statValues.forEach((node) => statObserver.observe(node));
-  }
 } else {
   revealNodes.forEach(markRevealed);
-  statValues.forEach(startCount);
 }
 
 if (navToggle) {
@@ -363,71 +213,10 @@ window.addEventListener("resize", () => {
   requestMotionFrame();
 });
 
-if (testimonialSlides.length) {
-  setActiveTestimonial(0);
-  queueTestimonials();
-}
-
-if (testimonialPrev) {
-  testimonialPrev.addEventListener("click", () => {
-    setActiveTestimonial(testimonialIndex - 1);
-    queueTestimonials();
-  });
-}
-
-if (testimonialNext) {
-  testimonialNext.addEventListener("click", () => {
-    setActiveTestimonial(testimonialIndex + 1);
-    queueTestimonials();
-  });
-}
-
-if (testimonialSlider) {
-  testimonialSlider.addEventListener("mouseenter", clearTestimonialTimer);
-  testimonialSlider.addEventListener("mouseleave", queueTestimonials);
-  // Keyboard users need the same pause the pointer already got.
-  testimonialSlider.addEventListener("focusin", clearTestimonialTimer);
-  testimonialSlider.addEventListener("focusout", (event) => {
-    if (!testimonialSlider.contains(event.relatedTarget)) {
-      queueTestimonials();
-    }
-  });
-}
-
-// Autoplay is wasted work (and drains battery) while the tab is hidden.
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    clearTestimonialTimer();
-  } else {
-    queueTestimonials();
-  }
-});
-
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     setNavOpen(false);
   }
-});
-
-faqButtons.forEach((button, index) => {
-  const panel = button.nextElementSibling;
-  if (!(panel instanceof HTMLElement)) {
-    return;
-  }
-
-  const panelId = panel.id || `faq-panel-${index + 1}`;
-  panel.id = panelId;
-  button.setAttribute("aria-controls", panelId);
-
-  const isOpen = button.getAttribute("aria-expanded") === "true";
-  setFaqState(button, isOpen);
-
-  button.addEventListener("click", () => {
-    const nextOpenState = button.getAttribute("aria-expanded") !== "true";
-
-    faqButtons.forEach((otherButton) => setFaqState(otherButton, false));
-    setFaqState(button, nextOpenState);
-  });
 });
 
 if (contactForm && formStatus) {
