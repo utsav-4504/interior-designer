@@ -1015,6 +1015,28 @@ section[id] {
   color: #fff;
 }
 
+/* Second-level filter row -- one sub-project/stall per button, shown only
+   for whichever main category is currently selected. */
+.gallery__subfilters {
+  margin-top: 1rem;
+}
+
+.gallery__subfilter-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.gallery__subfilter-group[hidden] {
+  display: none;
+}
+
+.filter-btn--sub {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.66rem;
+}
+
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

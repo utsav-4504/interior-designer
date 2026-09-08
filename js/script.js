@@ -375,15 +375,30 @@ document.addEventListener("click", (event) => {
 const gallery = document.querySelector(".gallery");
 
 if (gallery) {
-  const filterButtons = [...gallery.querySelectorAll(".filter-btn")];
+  const mainFilterRow = gallery.querySelector(".gallery__filters");
+  const filterButtons = mainFilterRow
+    ? [...mainFilterRow.querySelectorAll(".filter-btn")]
+    : [];
   const galleryItems = [...gallery.querySelectorAll(".gallery-item")];
   const emptyNote = gallery.querySelector(".gallery__empty");
+  // One group of sub-filter buttons per main category (e.g. each
+  // exhibition stall, each residential project) -- only the group for
+  // the currently selected category is shown.
+  const subfilterGroups = [...gallery.querySelectorAll("[data-subfilter-group]")];
 
-  function applyFilter(filter) {
+  let currentCategory = "all";
+  let currentSubcategory = "all";
+
+  function applyFilter() {
     let shown = 0;
 
     galleryItems.forEach((item) => {
-      const match = filter === "all" || item.dataset.category === filter;
+      const categoryMatch =
+        currentCategory === "all" || item.dataset.category === currentCategory;
+      const subMatch =
+        currentSubcategory === "all" ||
+        item.dataset.subcategory === currentSubcategory;
+      const match = categoryMatch && subMatch;
       item.classList.toggle("is-hidden", !match);
 
       if (match) {
@@ -400,13 +415,49 @@ if (gallery) {
     }
   }
 
+  function showSubfilterGroup(category) {
+    subfilterGroups.forEach((group) => {
+      const isMatch = group.dataset.subfilterGroup === category;
+      group.hidden = !isMatch;
+
+      if (isMatch) {
+        // Reset this group back to "All" every time it becomes visible,
+        // so switching categories never leaves a stale sub-selection.
+        const buttons = [...group.querySelectorAll(".filter-btn--sub")];
+        buttons.forEach((btn) => {
+          const isAll = btn.dataset.subfilter === "all";
+          btn.classList.toggle("is-active", isAll);
+          btn.setAttribute("aria-selected", String(isAll));
+        });
+      }
+    });
+  }
+
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       filterButtons.forEach((other) => {
         other.classList.toggle("is-active", other === button);
         other.setAttribute("aria-selected", String(other === button));
       });
-      applyFilter(button.dataset.filter || "all");
+
+      currentCategory = button.dataset.filter || "all";
+      currentSubcategory = "all";
+      showSubfilterGroup(currentCategory);
+      applyFilter();
+    });
+  });
+
+  subfilterGroups.forEach((group) => {
+    const buttons = [...group.querySelectorAll(".filter-btn--sub")];
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        buttons.forEach((other) => {
+          other.classList.toggle("is-active", other === button);
+          other.setAttribute("aria-selected", String(other === button));
+        });
+        currentSubcategory = button.dataset.subfilter || "all";
+        applyFilter();
+      });
     });
   });
 
