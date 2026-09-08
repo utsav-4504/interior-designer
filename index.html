@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="css/styles.css?v=30" />
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollToPlugin.min.js" defer></script>
-    <script src="js/script.js?v=20" defer></script>
+    <script src="js/script.js?v=21" defer></script>
     <noscript>
       <style>
         [data-reveal],
@@ -973,6 +973,7 @@
                   name="phone"
                   placeholder="+91"
                   autocomplete="tel"
+                  required
                 />
               </label>
               <label class="form-field">
@@ -986,6 +987,23 @@
                 />
               </label>
               <label class="form-field">
+                <span>City / Location</span>
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="e.g. Ahmedabad"
+                  autocomplete="address-level2"
+                />
+              </label>
+              <label class="form-field">
+                <span>Property Size</span>
+                <input
+                  type="text"
+                  name="property-size"
+                  placeholder="e.g. 1200 sq. ft."
+                />
+              </label>
+              <label class="form-field">
                 <span>Project Type</span>
                 <select name="project-type" required>
                   <option value="">Select a category</option>
@@ -995,6 +1013,28 @@
                   <option>3D visualization</option>
                   <option>Renovation design</option>
                   <option>Material &amp; colour consultation</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Budget Range</span>
+                <select name="budget">
+                  <option value="">Select a range</option>
+                  <option>Under &#8377;5 lakh</option>
+                  <option>&#8377;5&ndash;15 lakh</option>
+                  <option>&#8377;15&ndash;30 lakh</option>
+                  <option>&#8377;30 lakh+</option>
+                  <option>Not decided yet</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Preferred Timeline</span>
+                <select name="timeline">
+                  <option value="">Select a timeline</option>
+                  <option>Immediately</option>
+                  <option>Within 1 month</option>
+                  <option>1&ndash;3 months</option>
+                  <option>3&ndash;6 months</option>
+                  <option>Just exploring</option>
                 </select>
               </label>
               <label class="form-field form-field--full">
