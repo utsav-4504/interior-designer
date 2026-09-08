@@ -966,6 +966,12 @@ section[id] {
   color: var(--muted);
 }
 
+.portfolio__note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
 /* ---------- Portfolio gallery ----------
    A plain, edge-to-edge grid (per reference: nicepage.com "we-create-
    exclusive-interior-design") -- images butt up against each other with

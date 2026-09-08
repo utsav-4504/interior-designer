@@ -63,10 +63,14 @@ function updateHeaderSolidState() {
     return;
   }
 
-  const threshold = heroSection
-    ? heroSection.getBoundingClientRect().height - 80
-    : 80;
+  // Pages with no hero (e.g. the portfolio page) have no full-bleed image
+  // for the header to sit transparently over, so keep it solid throughout.
+  if (!heroSection) {
+    siteHeader.classList.add("is-solid");
+    return;
+  }
 
+  const threshold = heroSection.getBoundingClientRect().height - 80;
   siteHeader.classList.toggle("is-solid", window.scrollY > threshold);
 }
 

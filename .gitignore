@@ -1,0 +1,58 @@
+# Raw, full-resolution 3D render exports from Enscape. These are large
+# (often several MB each) and there are thousands of them across the
+# project folders -- they are a local working archive, not web assets.
+#
+# The live site only ever ships:
+#   - images/portfolio/  (small, resized covers used by the portfolio page)
+#   - a handful of specific images already referenced directly in
+#     index.html's hero/intro/about/beliefs/why-us/founder sections,
+#     which are explicitly allow-listed below so they stay tracked.
+#
+# images/portfolio/ is NOT covered by any rule below, so it is tracked
+# normally.
+
+images/residential/1/
+images/residential/4/
+
+images/residential/2/*
+!images/residential/2/BEDROOM 1.jpg
+!images/residential/2/kitchen 1.jpg
+!images/residential/2/living 6.jpg
+!images/residential/2/living room s1.jpg
+
+images/residential/3/*
+!images/residential/3/Enscape_2024-12-31-14-44-31.jpg
+
+images/exterior design/1/*
+!images/exterior design/1/Enscape_2026-03-27-15-31-20.jpg
+!images/exterior design/1/Enscape_2026-03-27-15-40-56.jpg
+!images/exterior design/1/Enscape_2026-03-27-15-42-35.jpg
+
+images/exterior design/2/*
+!images/exterior design/2/Enscape_2026-03-24-18-52-44.jpg
+
+images/show rooms/1/*
+!images/show rooms/1/Enscape_2026-04-17-17-56-51.jpg
+!images/show rooms/1/Enscape_2026-04-17-18-00-48.jpg
+!images/show rooms/1/Enscape_2026-04-17-18-04-01.jpg
+
+images/show rooms/2/
+images/show rooms/3/
+images/show rooms/4/
+
+images/show rooms/5/*
+!images/show rooms/5/Enscape_2025-03-26-17-23-54.jpg
+
+images/exibition  stall design/*/
+!images/exibition  stall design/ambica/
+!images/exibition  stall design/audio track/
+
+images/exibition  stall design/ambica/*
+!images/exibition  stall design/ambica/Enscape_2025-05-28-16-41-03.jpg
+!images/exibition  stall design/ambica/Enscape_2025-05-28-16-48-05.jpg
+
+images/exibition  stall design/audio track/*
+!images/exibition  stall design/audio track/Enscape_2025-06-23-18-08-45.jpg
+
+# Windows thumbnail cache files that sometimes end up inside these folders.
+Thumbs.db

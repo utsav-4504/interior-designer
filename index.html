@@ -28,10 +28,10 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Work+Sans:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=30" />
+    <link rel="stylesheet" href="css/styles.css?v=31" />
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollToPlugin.min.js" defer></script>
-    <script src="js/script.js?v=23" defer></script>
+    <script src="js/script.js?v=24" defer></script>
     <noscript>
       <style>
         [data-reveal],
@@ -69,7 +69,7 @@
           aria-label="Primary navigation"
         >
           <a href="#home" data-nav-link>Home</a>
-          <a href="#portfolio" data-nav-link>Portfolio</a>
+          <a href="portfolio.html" data-nav-link>Portfolio</a>
           <a href="#about" data-nav-link>About</a>
           <a href="#services" data-nav-link>Services</a>
           <a href="#process" data-nav-link>Process</a>
@@ -270,24 +270,6 @@
               carefully resolved in 3D, honestly labelled, before any of it
               is built.
             </p>
-
-            <div class="gallery__filters" role="tablist" aria-label="Filter by category">
-              <button class="filter-btn is-active" type="button" role="tab" aria-selected="true" data-filter="all">
-                All
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="residential">
-                Residential
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="retail">
-                Retail
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="exterior">
-                Exterior
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-filter="exhibition">
-                Exhibition
-              </button>
-            </div>
           </div>
 
           <div class="gallery__grid" data-reveal>
@@ -299,8 +281,23 @@
               data-title="Quiet bedroom study"
             >
               <img
-                src="images/residential/2/BEDROOM 1.jpg"
+                src="images/portfolio/residential/residential-2.jpg"
                 alt="Bedroom concept with layered lighting"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+
+            <button
+              class="gallery-item"
+              type="button"
+              data-category="residential"
+              data-tag="Residential &middot; Concept"
+              data-title="Master bedroom, moody palette"
+            >
+              <img
+                src="images/portfolio/residential/residential-4.jpg"
+                alt="Master bedroom with dark feature wall"
                 loading="lazy"
                 decoding="async"
               />
@@ -314,8 +311,23 @@
               data-title="Showroom seating"
             >
               <img
-                src="images/show rooms/1/Enscape_2026-04-17-17-56-51.jpg"
+                src="images/portfolio/retail/retail-1.jpg"
                 alt="Showroom design with customer seating"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+
+            <button
+              class="gallery-item"
+              type="button"
+              data-category="retail"
+              data-tag="Retail &middot; Concept"
+              data-title="Spa lounge, layered green"
+            >
+              <img
+                src="images/portfolio/retail/retail-4.jpg"
+                alt="Spa and salon lounge with layered green tones"
                 loading="lazy"
                 decoding="async"
               />
@@ -329,7 +341,7 @@
               data-title="Facade at dusk"
             >
               <img
-                src="images/exterior design/1/Enscape_2026-03-27-15-40-56.jpg"
+                src="images/portfolio/exterior/exterior-1.jpg"
                 alt="Modern facade viewed at dusk"
                 loading="lazy"
                 decoding="async"
@@ -339,58 +351,13 @@
             <button
               class="gallery-item"
               type="button"
-              data-category="exhibition"
-              data-tag="Exhibition &middot; Concept"
-              data-title="Brand corner stall"
-            >
-              <img
-                src="images/exibition  stall design/ambica/Enscape_2025-05-28-16-41-03.jpg"
-                alt="Exhibition corner with product branding"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="residential"
-              data-tag="Residential &middot; Concept"
-              data-title="Kitchen and dining"
-            >
-              <img
-                src="images/residential/2/kitchen 1.jpg"
-                alt="Kitchen and dining interior concept"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="retail"
-              data-tag="Retail &middot; Concept"
-              data-title="Layered showroom light"
-            >
-              <img
-                src="images/show rooms/5/Enscape_2025-03-26-17-23-54.jpg"
-                alt="Showroom interior with layered lighting"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
               data-category="exterior"
               data-tag="Exterior &middot; Concept"
-              data-title="Elevation study"
+              data-title="Villa entrance &amp; boundary wall"
             >
               <img
-                src="images/exterior design/1/Enscape_2026-03-27-15-42-35.jpg"
-                alt="Facade elevation visualization"
+                src="images/portfolio/exterior/exterior-2.jpg"
+                alt="Villa entrance with gated boundary wall"
                 loading="lazy"
                 decoding="async"
               />
@@ -401,56 +368,11 @@
               type="button"
               data-category="exhibition"
               data-tag="Exhibition &middot; Concept"
-              data-title="Compact stand layout"
+              data-title="Open-frontage exhibition stall"
             >
               <img
-                src="images/exibition  stall design/audio track/Enscape_2025-06-23-18-08-45.jpg"
-                alt="Compact exhibition stand visualization"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="residential"
-              data-tag="Residential &middot; Concept"
-              data-title="Open-plan living"
-            >
-              <img
-                src="images/residential/2/living 6.jpg"
-                alt="Open-plan living space concept"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="retail"
-              data-tag="Retail &middot; Concept"
-              data-title="Reception concept"
-            >
-              <img
-                src="images/show rooms/1/Enscape_2026-04-17-18-04-01.jpg"
-                alt="Showroom reception interior"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <button
-              class="gallery-item"
-              type="button"
-              data-category="exterior"
-              data-tag="Exterior &middot; Concept"
-              data-title="Vertical elevation"
-            >
-              <img
-                src="images/exterior design/2/Enscape_2026-03-24-18-52-44.jpg"
-                alt="Contemporary vertical elevation concept"
+                src="images/portfolio/exhibition/exhibition-01.jpg"
+                alt="Open-frontage exhibition stall, exhibition stall design"
                 loading="lazy"
                 decoding="async"
               />
@@ -461,27 +383,30 @@
               type="button"
               data-category="exhibition"
               data-tag="Exhibition &middot; Concept"
-              data-title="Stall detail"
+              data-title="Reception-led product bay"
             >
               <img
-                src="images/exibition  stall design/ambica/Enscape_2025-05-28-16-48-05.jpg"
-                alt="Exhibition stall detail visualization"
+                src="images/portfolio/exhibition/exhibition-13.jpg"
+                alt="Reception-led product bay, exhibition stall design"
                 loading="lazy"
                 decoding="async"
               />
             </button>
           </div>
 
-          <p class="gallery__empty" hidden>Nothing in this category yet.</p>
-
           <div class="portfolio__note" data-reveal>
             <p>
               The first completed project shown here will be real. Until
               then &mdash; the studio is open to its first commission.
             </p>
-            <a class="button button--outline" href="#contact"
-              >Begin the Experience</a
-            >
+            <div class="portfolio__note-actions">
+              <a class="button button--outline" href="portfolio.html"
+                >View Full Portfolio</a
+              >
+              <a class="button button--dark" href="#contact"
+                >Begin the Experience</a
+              >
+            </div>
           </div>
         </div>
       </section>
@@ -1056,7 +981,7 @@
         <div class="site-footer__links">
           <div>
             <h3>Navigate</h3>
-            <a href="#portfolio">Portfolio</a>
+            <a href="portfolio.html">Portfolio</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#contact">Contact</a>
