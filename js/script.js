@@ -117,9 +117,7 @@ function buildWhatsAppLink(formData) {
   const phone = formData.get("phone")?.toString().trim() || "-";
   const email = formData.get("email")?.toString().trim() || "-";
   const location = formData.get("location")?.toString().trim() || "-";
-  const propertySize = formData.get("property-size")?.toString().trim() || "-";
   const projectType = formData.get("project-type")?.toString().trim() || "-";
-  const budget = formData.get("budget")?.toString().trim() || "-";
   const timeline = formData.get("timeline")?.toString().trim() || "-";
   const brief = formData.get("brief")?.toString().trim() || "-";
 
@@ -128,9 +126,7 @@ function buildWhatsAppLink(formData) {
     `Phone: ${phone}`,
     `Email: ${email}`,
     `City / Location: ${location}`,
-    `Property size: ${propertySize}`,
     `Project type: ${projectType}`,
-    `Budget range: ${budget}`,
     `Preferred timeline: ${timeline}`,
     "",
     "Project brief:",
