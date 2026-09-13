@@ -335,7 +335,15 @@ function scrollToHash(hash) {
     return false;
   }
 
-  const headerOffset = siteHeader ? siteHeader.offsetHeight + 14 : 0;
+  // Read the stable --header-h custom property rather than the header's
+  // current offsetHeight: the header's own height shrinks once .is-solid
+  // kicks in mid-scroll, and computing the offset from a value that
+  // changes out from under the animation left a stray gap at the target.
+  const headerHeight = siteHeader
+    ? parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) *
+      parseFloat(getComputedStyle(document.documentElement).fontSize)
+    : 0;
+  const headerOffset = headerHeight + 14;
   const y = target.getBoundingClientRect().top + window.scrollY - headerOffset;
 
   animateScrollTo(y);

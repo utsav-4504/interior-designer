@@ -45,7 +45,7 @@
   --font-heading: "Jost", sans-serif;
   --font-body: "Work Sans", sans-serif;
 
-  --step-h1: clamp(2.75rem, 1.85rem + 4vw, 5.5rem);
+  --step-h1: clamp(2.75rem, 1.85rem + 4vw, 3.5rem);
   --step-h2: clamp(1.85rem, 1.4rem + 2vw, 2.75rem);
   --step-h3: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
   --step-body: clamp(0.98rem, 0.94rem + 0.15vw, 1.05rem);
