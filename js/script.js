@@ -389,6 +389,41 @@ if (gallery) {
   let currentCategory = "all";
   let currentSubcategory = "all";
 
+  // Sliding pill that glides beneath the active main-category tab.
+  let mainIndicator = null;
+
+  function moveMainIndicator(button) {
+    if (!mainIndicator || !button) {
+      return;
+    }
+    mainIndicator.style.width = `${button.offsetWidth}px`;
+    mainIndicator.style.height = `${button.offsetHeight}px`;
+    mainIndicator.style.transform = `translate(${button.offsetLeft}px, ${button.offsetTop}px)`;
+    mainIndicator.classList.add("is-ready");
+  }
+
+  if (mainFilterRow && filterButtons.length) {
+    mainIndicator = document.createElement("span");
+    mainIndicator.className = "filter-track-indicator";
+    mainIndicator.setAttribute("aria-hidden", "true");
+    mainFilterRow.prepend(mainIndicator);
+
+    const activeButton =
+      filterButtons.find((b) => b.classList.contains("is-active")) ||
+      filterButtons[0];
+    // Position without animating in on first paint.
+    requestAnimationFrame(() => moveMainIndicator(activeButton));
+
+    window.addEventListener("resize", () => {
+      const current = filterButtons.find((b) =>
+        b.classList.contains("is-active"),
+      );
+      if (current) {
+        moveMainIndicator(current);
+      }
+    });
+  }
+
   function applyFilter() {
     let shown = 0;
 
@@ -439,6 +474,7 @@ if (gallery) {
         other.classList.toggle("is-active", other === button);
         other.setAttribute("aria-selected", String(other === button));
       });
+      moveMainIndicator(button);
 
       currentCategory = button.dataset.filter || "all";
       currentSubcategory = "all";
