@@ -28,7 +28,7 @@ const heroSection = document.querySelector(".hero");
 const contactForm = document.querySelector(".contact-form");
 const formStatus = document.querySelector(".contact-form__status");
 
-const CONTACT_WHATSAPP = "917016891346";
+const CONTACT_WHATSAPP = "917567604498";
 
 let motionFrame = 0;
 
