@@ -2,9 +2,9 @@ const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
 
-// GSAP powers the smooth transitions (in-page scroll, the hero coverflow, the
-// lightbox). It is loaded from a CDN; if that fails, every feature below falls
-// back to its plain CSS / rAF behaviour so nothing breaks offline.
+// GSAP powers the smooth transitions (in-page scroll and the lightbox). It is
+// loaded from js/vendor; if it is missing, every feature below falls back to
+// its plain CSS / rAF behaviour so nothing breaks.
 const gsap = window.gsap || null;
 const hasGsap = !!gsap && !prefersReducedMotion;
 
@@ -433,7 +433,7 @@ if (gallery) {
   }
 
   function applyFilter() {
-    let shown = 0;
+    const matched = [];
 
     galleryItems.forEach((item) => {
       const categoryMatch =
@@ -443,18 +443,22 @@ if (gallery) {
         item.dataset.subcategory === currentSubcategory;
       const match = categoryMatch && subMatch;
       item.classList.toggle("is-hidden", !match);
+      item.classList.remove("is-repop");
 
       if (match) {
-        shown += 1;
-        item.classList.remove("is-repop");
-        // Force a reflow so the re-entrance animation restarts.
-        void item.offsetWidth;
-        item.classList.add("is-repop");
+        matched.push(item);
       }
     });
 
+    // One reflow for the whole grid so the re-entrance animation restarts,
+    // instead of one per tile (over a thousand on the portfolio page).
+    if (matched.length) {
+      void matched[0].parentElement.offsetWidth;
+      matched.forEach((item) => item.classList.add("is-repop"));
+    }
+
     if (emptyNote) {
-      emptyNote.hidden = shown > 0;
+      emptyNote.hidden = matched.length > 0;
     }
   }
 
@@ -682,10 +686,9 @@ if (gallery) {
 
 }
 
-/* ---------- Hero split-slide showcase ----------
-   Each slide is a full two-column "scene" (copy + image). Advancing crossfades
-   the whole slide, restarts its text layers' staggered entrance, and tweens
-   the section's tinted background to that slide's own colour. */
+/* ---------- Hero slider ----------
+   One full-bleed photo per slide. Advancing crossfades the whole slide and
+   restarts its text layers' staggered entrance. */
 
 const heroSlider = document.querySelector("[data-hero-slider]");
 
@@ -751,8 +754,18 @@ if (heroSlider) {
     heroTimer = 0;
   }
 
-  heroSlider.addEventListener("pointerenter", stopHeroTimer);
-  heroSlider.addEventListener("pointerleave", restartHeroTimer);
+  // Pause on mouse hover only: a tap on a touch screen fires pointerenter
+  // with no matching pointerleave, which would stop the slider for good.
+  heroSlider.addEventListener("pointerenter", (event) => {
+    if (event.pointerType === "mouse") {
+      stopHeroTimer();
+    }
+  });
+  heroSlider.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "mouse") {
+      restartHeroTimer();
+    }
+  });
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {

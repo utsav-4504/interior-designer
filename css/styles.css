@@ -3,7 +3,6 @@
 
 :root {
   --ink: #141414;
-  --ink-soft: rgba(20, 20, 20, 0.78);
   --paper: #ffffff;
   --paper-soft: #f6f5f2;
   --line: rgba(20, 20, 20, 0.13);
@@ -13,13 +12,6 @@
 
   /* Logo palette, palest to deepest, plus the brand blue provided
      separately -- it anchors the deep end of the graded gradients below. */
-  --teal-50: #d0eef0;
-  --teal-100: #b4e8eb;
-  --teal-200: #99e6e9;
-  --teal-300: #79e1ea;
-  --teal-400: #1fd8e0;
-  --teal-500: #78cacc;
-  --teal-600: #9dbcbe;
   --teal-700: #618286;
   --teal-800: #2c4347;
   --brand-blue: #2596be;
@@ -33,7 +25,6 @@
     var(--teal-700) 55%,
     var(--brand-blue) 100%
   );
-  --gradient-bright: linear-gradient(135deg, var(--teal-400), var(--brand-blue));
 
   --footer-bg: #ffffff;
   --footer-text: rgba(20, 20, 20, 0.86);
@@ -51,7 +42,6 @@
   --step-body: clamp(0.98rem, 0.94rem + 0.15vw, 1.05rem);
   --step-eyebrow: 0.78rem;
 
-  --scroll-progress: 0;
 }
 
 *,
@@ -300,7 +290,7 @@ section[id] {
     border-color 0.22s ease;
 }
 
-/* Every button variant now shares one look -- brand-blue fill, black
+/* Every button variant now shares one look -- brand-blue fill, white
    label -- regardless of what surface it sits on; only the hover shade
    differs slightly to give press feedback. */
 .button--dark,
@@ -316,7 +306,7 @@ section[id] {
 .button--light:hover {
   background: #1c7793;
   border-color: #1c7793;
-  color: var(--ink);
+  color: #fff;
 }
 
 [data-reveal] {
@@ -339,7 +329,7 @@ section[id] {
   top: 0;
   left: 0;
   z-index: 40;
-  width: 100%;  
+  width: 100%;
   padding: 1.4rem 0;
   background: #fff;
   transition:
@@ -624,6 +614,10 @@ section[id] {
   .hero__bars button {
     width: 1.8rem;
   }
+
+  .hero__scroll-indicator {
+    display: none;
+  }
 }
 
 /* ---------- About ---------- */
@@ -674,7 +668,6 @@ section[id] {
   background: var(--paper);
 }
 
-.services .section:nth-of-type(even) .service-card,
 .services.section:nth-of-type(even) .service-card {
   background: var(--paper-soft);
 }
@@ -688,18 +681,6 @@ section[id] {
   display: grid;
   gap: 0.7rem;
   align-content: start;
-}
-
-.service-card ul {
-  display: grid;
-  gap: 0.4rem;
-  margin-top: 0.2rem;
-  color: var(--muted);
-  font-size: 0.92rem;
-}
-
-.service-card li::marker {
-  color: var(--accent);
 }
 
 /* ---------- Why choose us ---------- */
@@ -957,8 +938,9 @@ section[id] {
 .portfolio__note {
   display: grid;
   gap: 1rem;
-  justify-items: start;
+  justify-items: center;
   margin-top: 2.5rem;
+  text-align: center;
 }
 
 .portfolio__note p {
@@ -969,8 +951,8 @@ section[id] {
 .portfolio__note-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.9rem;
-  margin: 0 auto;
 }
 
 /* ---------- Portfolio gallery ----------
@@ -1100,6 +1082,10 @@ section[id] {
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gallery__grid--teaser {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .gallery__grid[data-reveal] {
@@ -1264,6 +1250,12 @@ section[id] {
   border-color: rgba(255, 255, 255, 0.6);
 }
 
+@media (max-width: 920px) {
+  .gallery__grid--teaser {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
   .gallery__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1410,7 +1402,7 @@ section[id] {
     padding-top: 1.5rem;
   }
 
-  .timeline-card:first-child {
+  .timeline-card:nth-child(-n + 2) {
     border-top: 0;
     padding-top: 0;
   }
@@ -1455,7 +1447,8 @@ section[id] {
     display: flex;
   }
 
-  .site-nav a {
+  .site-nav a,
+  .site-header.is-solid .site-nav a {
     padding: 0.75rem 0;
     font-size: 1.4rem;
     color: #fff;
@@ -1482,7 +1475,12 @@ section[id] {
     grid-template-columns: 1fr;
   }
 
+  .about__media-main {
+    min-height: 22rem;
+  }
+
   .about__media-side {
+    min-height: 16rem;
     margin-top: 0;
   }
 
@@ -1508,6 +1506,15 @@ section[id] {
     grid-template-columns: 1fr;
   }
 
+  .service-card__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .process__timeline .timeline-card:nth-child(2) {
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -1518,10 +1525,6 @@ section[id] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
